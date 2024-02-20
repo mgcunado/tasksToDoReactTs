@@ -28,7 +28,7 @@ export const Task = ({ translations, language }: Props) => {
 
   const getTask = async () => {
     const url = `${ Global.url }categories/${params.categoryId}/subcategories/${params.subcategoryId}/tasks/${params.id}`;
-    const { data, charging } = await RequestAjax( url, 'GET');
+    const { data, charging } = await RequestAjax( url, 'GET', '', true);
 
     if ( data.status === 'success' ) {
       setTask(data.task);
@@ -37,7 +37,7 @@ export const Task = ({ translations, language }: Props) => {
   };
 
   const deleteTask = async (categoryId: any, subcategoryId: any, id: any) => {
-    const { data } = await RequestAjax(`${Global.url}categories/${categoryId}/subcategories/${subcategoryId}/tasks/${id}`, 'DELETE');
+    const { data } = await RequestAjax(`${Global.url}categories/${categoryId}/subcategories/${subcategoryId}/tasks/${id}`, 'DELETE', '', true);
 
     if ( data.status === 'success' ) {
       setShowModal(false);

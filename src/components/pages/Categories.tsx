@@ -13,7 +13,7 @@ export const Categories = ({ translations  }: { translations: any  }) => {
 
   const getCategories = async () => {
     const url = `${ Global.url }categories`;
-    const { data, charging } = await RequestAjax( url, 'GET');
+    const { data, charging } = await RequestAjax( url, 'GET', '', true);
 
     if ( data.status === 'success' ) {
       setCategories(data.categories);

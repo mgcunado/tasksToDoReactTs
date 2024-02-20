@@ -33,7 +33,7 @@ export const Tasks = ({ language, translations  }: { language: string, translati
 
     const url = params?.todo ? `${Global.url}tasks/true` : `${Global.url}tasks`;
 
-    const { data, charging } = await RequestAjax( url, 'GET', { orderBy } );
+    const { data, charging } = await RequestAjax( url, 'GET', { orderBy }, true );
 
     if ( data.status === 'success' && ( taskDeleted || changeTodo || changeOrder ) ) {
       setTaskDeleted(false);

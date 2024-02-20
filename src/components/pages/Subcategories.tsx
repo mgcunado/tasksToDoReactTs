@@ -16,7 +16,7 @@ export const Subcategories = ({ translations  }: { translations: any  }) => {
 
   const getSubcategories = async () => {
     const url = `${ Global.url }categories/${params.categoryId}/subcategories`;
-    const { data, charging } = await RequestAjax( url, 'GET');
+    const { data, charging } = await RequestAjax( url, 'GET', '', true);
 
     if ( data.status === 'success' ) {
       params.categoryId ? setCategoryId(params.categoryId) : ''

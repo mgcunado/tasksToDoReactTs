@@ -36,7 +36,7 @@ export const Search = ({ translations, language }: Props) => {
     const orderBy= order
 
     const url = params?.todo === 'true' ? `${Global.url}search/true/${params.search}` : `${Global.url}search/false/${params.search}`;
-    const { data, charging } = await RequestAjax( url, 'GET', { orderBy } );
+    const { data, charging } = await RequestAjax( url, 'GET', { orderBy }, true );
 
     if ( data.status === 'success' && ( taskDeleted || changeTodo || changeOrder ) ) {
       setTaskDeleted(false);

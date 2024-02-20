@@ -20,7 +20,7 @@ export const Priorities: React.FC<PrioritiesProps> = (props) => {
 
   const getPriorities = async () => {
     const url = `${ Global.url }priority`;
-    const { data } = await RequestAjax( url, 'GET');
+    const { data } = await RequestAjax( url, 'GET', '', true );
 
     if ( data.status === 'success' ) {
       setPriorities(data.priorities);

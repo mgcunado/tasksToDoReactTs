@@ -88,7 +88,7 @@ export const CreateTask = ({ translations, language }: Props) => {
     const newTask = form;
 
   {/* save article in backend */}
-    const { data } = await RequestAjax( `${url}categories/${params.categoryId}/subcategories/${params.subcategoryId}/tasks/`, 'POST', newTask );
+    const { data } = await RequestAjax( `${url}categories/${params.categoryId}/subcategories/${params.subcategoryId}/tasks/`, 'POST', newTask, true );
 
     data.status === 'created' ? setResult('saved') : setResult('error');
 
@@ -100,10 +100,10 @@ export const CreateTask = ({ translations, language }: Props) => {
     {/* first parameter is field name in form */}
       formData.append('file0', fileInput.files[0]);
 
-      const uploadImage = await RequestAjax( `${url}upload-image/${data.article._id}`, 'POST', formData, true );
+      const uploadImage = await RequestAjax( `${url}upload-image/${data.article._id}`, 'POST', formData, true, true );
 
       uploadImage.data.status === 'created' ? setResult('saved') : setResult('error');
-    };
+    }
   }
 
   return (

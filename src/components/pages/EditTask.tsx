@@ -39,7 +39,7 @@ export const EditTask = ({ translations, language }: Props) => {
 
   const getTask = async () => {
     const url = `${ Global.url }categories/${params.categoryId}/subcategories/${params.subcategoryId}/tasks/${params.id}`;
-    const { data } = await RequestAjax( url, 'GET');
+    const { data } = await RequestAjax( url, 'GET', '', true);
 
     if ( data.status === 'success' ) {
       setTask(data.task);
@@ -55,25 +55,25 @@ export const EditTask = ({ translations, language }: Props) => {
     const updatedTask = form;
 
   {/* save article in backend */}
-    const { data } = await RequestAjax( `${url}categories/${params.categoryId}/subcategories/${params.subcategoryId}/tasks/${params.id}`, 'PATCH', updatedTask );
+    const { data } = await RequestAjax( `${url}categories/${params.categoryId}/subcategories/${params.subcategoryId}/tasks/${params.id}`, 'PATCH', updatedTask, true );
 
     data.status === 'success' ? setResult('saved') : setResult('error');
   }
 
 {/* react-calendar function and constantes */}
-  const formatShortWeekday = (locale: string = 'es-ES', date: Date) => {
+  const formatShortWeekday = (locale: string = language, date: Date) => {
     const weekdays = new Intl.DateTimeFormat(locale, { weekday: 'narrow' });
     return weekdays.format(date);
   };
 
-  const formatMonthYear = (locale: string = 'es-ES', date: Date) => {
+  const formatMonthYear = (locale: string = language, date: Date) => {
     const month = date.toLocaleString(locale, { month: 'long' });
     const year = date.getFullYear();
     return `${month} - ${year}`;
   };
 
   const navigationLabel = (props: { date: Date }) => {
-    return formatMonthYear('es-ES', props.date);
+    return formatMonthYear(language, props.date);
   };
 
   const handleInputClick = () => {
@@ -170,6 +170,7 @@ export const EditTask = ({ translations, language }: Props) => {
                     showNavigation={true}
                     navigationLabel={navigationLabel}
                     onClickDay={handleCalendarClick}
+                    locale={ language }
                   />
                 </div>
               }

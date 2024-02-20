@@ -1,4 +1,4 @@
-export const RequestAjax = async (url: any, method: string, dataToSave: any = '', files = false) => {
+export const RequestAjax = async (url: any, method: string, dataToSave: any = '', needAuthorization = false, files = false) => {
   let charging = true;
 
   let options: { method: string, body?: string, headers?: HeadersInit } = {
@@ -17,6 +17,14 @@ export const RequestAjax = async (url: any, method: string, dataToSave: any = ''
     options = {
       method
     }
+
+    needAuthorization ? 
+      options.headers = { 
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      } : options.headers = {
+        'Accept': 'application/json'
+      };
   }
 
   if (method == 'POST' || method == 'PUT' || method == 'PATCH') {
@@ -28,13 +36,19 @@ export const RequestAjax = async (url: any, method: string, dataToSave: any = ''
     } else {
       options = {
         method,
-        body: JSON.stringify(dataToSave),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        body: JSON.stringify(dataToSave)
       }
     }
+
+    needAuthorization ? 
+      options.headers = { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      } : options.headers = {
+        'Content-Type': 'application/json'
+      };
   }
+
   const request = await fetch(url, options);
   const data = await request.json();
 

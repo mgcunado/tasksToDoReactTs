@@ -24,7 +24,7 @@ export const ShowTasks = ({ tasks, setTasks, setTaskDeleted, setOrder, translati
   const { t } = useTranslation();
 
   const deleteTask = async (categoryId: any, subcategoryId: any, id: any) => {
-    const { data } = await RequestAjax(`${Global.url}categories/${categoryId}/subcategories/${subcategoryId}/tasks/${id}`, 'DELETE');
+    const { data } = await RequestAjax(`${Global.url}categories/${categoryId}/subcategories/${subcategoryId}/tasks/${id}`, 'DELETE', '', true);
 
     if ( data.status === 'success' ) {
       const taskListUpdated = await tasks.filter((task: any) => task.id !== id );
@@ -34,7 +34,9 @@ export const ShowTasks = ({ tasks, setTasks, setTaskDeleted, setOrder, translati
   };
 
   const taskDone = async (categoryId: any, subcategoryId: any, id: any, done: boolean ) => {
-    const { data } = await RequestAjax(`${Global.url}categories/${categoryId}/subcategories/${subcategoryId}/tasks/${id}`, 'PATCH', { done: done });
+    const { data } = await RequestAjax(`${Global.url}categories/${categoryId}/subcategories/${subcategoryId}/tasks/${id}`, 'PATCH', { done: done }, true);
+    console.log('mikelito');
+    console.log(data);
 
     if ( data.status === 'success' ) {
       const taskListUpdated = await tasks.filter((task: any) => task.id !== id );
@@ -62,8 +64,15 @@ export const ShowTasks = ({ tasks, setTasks, setTaskDeleted, setOrder, translati
 
             </div>
             <div
-              className={`task-subcategory ${activeOrder === 'subcategoryId' ? 'order-active' : ''}`}
-              onClick={() => handleClick('subcategoryId')}
+              className={`task-category ${activeOrder === 'category.name' ? 'order-active' : ''}`}
+              onClick={() => handleClick('category.name')}
+            >
+              {t(translations.tasks['Category'])}
+              <img src="/images/orderby2.png" alt="Order by this" />
+            </div>
+            <div
+              className={`task-subcategory ${activeOrder === 'subcategory.name' ? 'order-active' : ''}`}
+              onClick={() => handleClick('subcategory.name')}
             >
               {t(translations.tasks['Subcategory'])}
               <img src="/images/orderby2.png" alt="Order by this" />
@@ -104,7 +113,7 @@ export const ShowTasks = ({ tasks, setTasks, setTaskDeleted, setOrder, translati
               >
                 <div className="task-task">
                   <Link
-                    to={`/categories/${task.subcategory.categoryId}/subcategories/${task.subcategory.id}/tasks/${task.id}`}
+                    to={`/categories/${task.subcategory.category.id}/subcategories/${task.subcategory.id}/tasks/${task.id}`}
                     className="task-task-link"
                     style={{
                       color: colors[task.priority.id],
@@ -112,6 +121,9 @@ export const ShowTasks = ({ tasks, setTasks, setTaskDeleted, setOrder, translati
                   >
                     { task.task }
                   </Link>
+                </div>
+                <div className="task-subcategory" style={{ color: colors[task.priority.id] }} >
+                  {t(translations.categories[task.subcategory.category.name])}
                 </div>
                 <div className="task-subcategory" style={{ color: colors[task.priority.id] }} >
                   {t(translations.subcategories[task.subcategory.name])}

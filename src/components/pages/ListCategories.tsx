@@ -1,4 +1,3 @@
-{/* import React from 'react'; */}
 import { Global } from '../../helpers/Globals';
 import { RequestAjax } from '../../helpers/RequestAjax';
 import { Link } from 'react-router-dom';
@@ -10,7 +9,7 @@ interface Props {
 
 export const ListCategories = ({ categories, setCategories }: Props) => {
   const deleteCategory = async (id: number) => {
-     const { data } = await RequestAjax(`${Global.url}category/${id}`, 'DELETE');
+     const { data } = await RequestAjax(`${Global.url}category/${id}`, 'DELETE', '', true);
 
     if ( data.status === 'success' ) {
       const categoryListUpdated = categories.filter((category: any) => category._id !== id );
