@@ -41,6 +41,8 @@ export const AuthProvider = ({ children }: any) => {
 
     {/* check token by ajax request to backend, then return user data */}
     const urlProfile = `${Global.url}auth/me`;
+    console.log('miguelito');
+    console.log(urlProfile);
     {/* const urlProfile = `${Global.url}user/profile/${userId}`; */}
     const request = await fetch(urlProfile, {
       method: 'GET',

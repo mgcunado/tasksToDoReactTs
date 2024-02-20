@@ -1,5 +1,5 @@
 export const Global = {
-  url: 'http://' + process.env.HOST + ':' + process.env.PORT_BACKEND + '/',
-  frontendUrl: 'http://' + process.env.HOST + ':' + process.env.PORT_FRONTEND + '/',
+  url: 'http://' + import.meta.env.VITE_HOST + ':' + import.meta.env.VITE_PORT_BACKEND + '/',
+  frontendUrl: 'http://' + import.meta.env.VITE_HOST + ':' + import.meta.env.VITE_PORT_FRONTEND + '/',
 };
 
