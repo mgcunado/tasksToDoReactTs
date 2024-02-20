@@ -9,8 +9,8 @@ The app is adapted for translations through i18n's communication with the nestjs
 - his backend side made in nestjs with mysql is at:
 `../backendTasksToDoNestJsMysql`
 
-- to get icon images:
-[flaticon.com](https://www.flaticon.com/)
+<!-- - to get icon images: -->
+<!-- [flaticon.com](https://www.flaticon.com/) -->
 
 ## Installation
 
